@@ -13,6 +13,7 @@
 		D9FAB1CB1CEABD06008BDA0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9FAB1C91CEABD06008BDA0D /* Main.storyboard */; };
 		D9FAB1CD1CEABD06008BDA0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9FAB1CC1CEABD06008BDA0D /* Assets.xcassets */; };
 		D9FAB1D01CEABD06008BDA0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9FAB1CE1CEABD06008BDA0D /* LaunchScreen.storyboard */; };
+		D9FAB1D91CEAF9B3008BDA0D /* SafeSingleTon.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FAB1D81CEAF9B3008BDA0D /* SafeSingleTon.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		D9FAB1CC1CEABD06008BDA0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9FAB1CF1CEABD06008BDA0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9FAB1D11CEABD06008BDA0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9FAB1D71CEAF9B3008BDA0D /* SafeSingleTon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafeSingleTon.h; sourceTree = "<group>"; };
+		D9FAB1D81CEAF9B3008BDA0D /* SafeSingleTon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafeSingleTon.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,8 @@
 				D9FAB1C41CEABD06008BDA0D /* AppDelegate.m */,
 				D9FAB1C61CEABD06008BDA0D /* ViewController.h */,
 				D9FAB1C71CEABD06008BDA0D /* ViewController.m */,
+				D9FAB1D71CEAF9B3008BDA0D /* SafeSingleTon.h */,
+				D9FAB1D81CEAF9B3008BDA0D /* SafeSingleTon.m */,
 				D9FAB1C91CEABD06008BDA0D /* Main.storyboard */,
 				D9FAB1CC1CEABD06008BDA0D /* Assets.xcassets */,
 				D9FAB1CE1CEABD06008BDA0D /* LaunchScreen.storyboard */,
@@ -149,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9FAB1D91CEAF9B3008BDA0D /* SafeSingleTon.m in Sources */,
 				D9FAB1C81CEABD06008BDA0D /* ViewController.m in Sources */,
 				D9FAB1C51CEABD06008BDA0D /* AppDelegate.m in Sources */,
 				D9FAB1C21CEABD06008BDA0D /* main.m in Sources */,
