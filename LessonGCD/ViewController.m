@@ -28,7 +28,7 @@
  
  1 串行和并发：任务串行执行就是每次只有一个任务被执行，任务并发执行就是在同一时间可以有多个任务被执行
  
- 2 同步和异步：一个同步函数只在完成了它预定的任务后才返回，一个异步函数会立即返回，预定的任务完成但不会等它完成。同步函数会阻塞当前线程，异步函数不会阻塞当前线程
+ 2 同步和异步：一个同步函数只在完成了它预定的任务后才返回，一个异步函数会立即返回，预定的任务完成但不会等它完成。同步函数会阻塞当前线程, 不会开新线程，异步函数不会阻塞当前线程， 会开新线程
  
  3 临界区：两个线程不能同时执行这段代码
 
@@ -47,7 +47,6 @@
  10 并发队列：在并发队列中的任务能得到的保证是它们会按照被添加的顺序开始执行，任务可能以任意顺序完成，不会知道何时开始运行下一个任务，或者任意时刻有多少Block在运行。何时开始一个Block完全取决于GCD。如果一个Block的执行时间与另一个重叠，也是由GCD来决定是否将其运行在另一个不同的核心上，
  
  */
-
 
 /*
  
@@ -84,24 +83,163 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSLog(@"任务1_%@_%d", [NSThread currentThread], [NSThread isMainThread]);
-//    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-//            NSLog(@"任务2_%@_%d", [NSThread currentThread], [NSThread isMainThread]);
-//    });
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"任务2_%@_%d", [NSThread currentThread], [NSThread isMainThread]);
+    [self disPatchGroup:nil];
+}
+- (IBAction)mainQueue:(id)sender {
+    /*
+    // 1 同步到主队列会造成死锁
+    dispatch_sync(dispatch_get_main_queue(), ^{
+       
+        // 这句代码永远不会执行
+        NSLog(@"%@_%d", [NSThread currentThread], [NSThread isMainThread]);
     });
     
+    // 这句也不会执行
+    NSLog(@"方法执行完成");
+    
+    */
+    
+    /**
+     *  异步到串行队列，异步函数要执行的任务会被排到队列的后面，只有当目前这个方法执行完毕后才会过来执行这个任务，如果有多个异步函数，那么任务会依次执行
+     */
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        NSLog(@"任务1_%@_%d", [NSThread currentThread], [NSThread isMainThread]);
 
-    for (int i = 0; i < 5000; i ++) {
-        NSLog(@"任务3_%@_%d", [NSThread currentThread], [NSThread isMainThread]);
-    }
-    for (int i = 0; i < 5000; i ++) {
-        NSLog(@"任务4_%@_%d", [NSThread currentThread], [NSThread isMainThread]);
-    }
+    });
+    
+    NSLog(@"任务2");
 }
+
+- (IBAction)concurrentQueue:(id)sender {
+    
+    dispatch_queue_t concurrent_queue = dispatch_queue_create("com.concurrent.queue", DISPATCH_QUEUE_CONCURRENT);
+    // 在非主队列并行执行一个异步函数
+    dispatch_async(concurrent_queue, ^{
+        NSLog(@"任务开始: %@", [NSThread currentThread]);
+        // 执行异步函数
+        dispatch_async(concurrent_queue, ^{
+            NSLog(@"任务1: %@", [NSThread currentThread]);
+        });
+        // 执行同步函数
+        dispatch_sync(concurrent_queue, ^{
+            // 当前任务睡2秒
+            sleep(2.0);
+            NSLog(@"任务2: %@", [NSThread currentThread]);
+        });
+        // 执行异步函数
+        dispatch_async(concurrent_queue, ^{
+            NSLog(@"任务3: %@", [NSThread currentThread]);
+        });
+        NSLog(@"任务执行完毕");
+    });
+    NSLog(@"方法执行完毕");
+}
+
+
+/**
+ *  执行dispatch_barrier_async必须在 自己创建的concurrent，如果在串行队列或者全局并发队列中使用，效果如同dispatch_async
+ *
+ *  在当前队列总执行dispatch_barrier_sync 会造成死锁，可以在其他并发队列中使用
+ */
+- (IBAction)barrierQueue:(id)sender {
+    // 创建一个并发的队列
+    dispatch_queue_t concurrent_queue = dispatch_queue_create("my_queue", DISPATCH_QUEUE_CONCURRENT);
+//    dispatch_queue_t concurrent_queue2 = dispatch_queue_create("com.concurrent.queue", DISPATCH_QUEUE_CONCURRENT);
+
+    // 执行异步函数
+    dispatch_async(concurrent_queue, ^{
+        NSLog(@"任务开始: %@", [NSThread currentThread]);
+        
+        dispatch_async(concurrent_queue, ^{
+            NSLog(@"任务1: %@", [NSThread currentThread]);
+        });
+        dispatch_async(concurrent_queue, ^{
+            NSLog(@"任务2: %@", [NSThread currentThread]);
+        });
+        // 执行栅栏函数
+        //dispatch_barrier_sync 会造成死锁
+//        dispatch_async(concurrent_queue2, ^{
+//            NSLog(@"其他并发队列中 %@", [NSThread currentThread]);
+//        });
+//        
+//        dispatch_barrier_sync(concurrent_queue2, ^{
+//            NSLog(@"任务3: %@", [NSThread currentThread]);
+//        });
+        dispatch_barrier_async(concurrent_queue, ^{
+             NSLog(@"任务3: %@", [NSThread currentThread]);
+        });
+        
+        dispatch_async(concurrent_queue, ^{
+            NSLog(@"任务4: %@", [NSThread currentThread]);
+        });
+        dispatch_async(concurrent_queue, ^{
+            NSLog(@"任务5: %@", [NSThread currentThread]);
+        });
+        NSLog(@"任务完毕");
+    });
+}
+
+/**
+ *  迭代 在并发队列中
+ *
+ */
+- (IBAction)dispatchApply:(id)sender {
+    
+    /**
+     *  迭代函数
+     *
+     *  @param iterations 迭代次数
+     *  @param queue      执行的队列
+     *  @param size_t     当前迭代的索引
+     *
+     */
+    
+    dispatch_apply(5, dispatch_get_global_queue(0, 0), ^(size_t index) {
+        
+        // 需要迭代的代码，迭代顺序不确定
+    });
+    
+}
+
+- (IBAction)disPatchGroup:(id)sender {
+    
+    // 创建一个队列组函数
+    dispatch_group_t group = dispatch_group_create();
+    
+    // 获得当前全局队列
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    
+    // 执行组函数
+    dispatch_group_async(group, queue, ^{
+        NSLog(@"任务1: %@", [NSThread currentThread]);
+    });
+    dispatch_group_async(group, queue, ^{
+        NSLog(@"任务2: %@", [NSThread currentThread]);
+    });
+    
+    // 当所有组函数执行完毕后执行dispatch_group_notify
+    dispatch_group_notify(group, queue, ^{
+        NSLog(@"当任务1和任务2执行完毕后通知执行任务3: %@", [NSThread currentThread]);
+    });
+    
+}
+
+/**
+ *  dispatch_suspend并不会立即暂停正在运行的block, 而是在当前block执行完成后, 暂停后续的block执行.
+ *
+ */
+- (IBAction)disPatchSuspend:(id)sender {
+//    dispatch_suspend(<#dispatch_object_t object#>)
+}
+
+- (IBAction)disPatchResume:(id)sender {
+//    dispatch_resume(<#dispatch_object_t object#>)
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
