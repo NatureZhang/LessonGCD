@@ -84,8 +84,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self disPatchGroup:nil];
+//    [self disPatchGroup:nil];
+    [self asyncQueue];
 }
+
+/**
+ *  异步到串行队列，异步函数要执行的任务会被排到队列的后面，只有当目前这个方法执行完毕后才会过来执行这个任务，如果有多个异步函数，那么任务会依次执行
+ */
+- (void)asyncQueue {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        for (int i = 0; i < 5000; i ++) {
+            NSLog(@"任务一：%@_%d", [NSThread currentThread], i);
+        }
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        for (int i = 0; i < 5000; i ++) {
+            NSLog(@"任务二：%@_%d", [NSThread currentThread], i);
+        }
+    });
+    
+}
+
 - (IBAction)mainQueue:(id)sender {
     /*
     // 1 同步到主队列会造成死锁
@@ -99,10 +122,6 @@
     NSLog(@"方法执行完成");
     
     */
-    
-    /**
-     *  异步到串行队列，异步函数要执行的任务会被排到队列的后面，只有当目前这个方法执行完毕后才会过来执行这个任务，如果有多个异步函数，那么任务会依次执行
-     */
     
     dispatch_async(dispatch_get_main_queue(), ^{
        
