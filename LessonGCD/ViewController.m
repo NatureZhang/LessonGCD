@@ -85,7 +85,127 @@
     [super viewDidLoad];
 
 //    [self disPatchGroup:nil];
-    [self asyncQueue];
+//    [self asyncQueue];
+    [self syncSerial];
+//    [self syncConcurrent];
+//    [self asyncSerial];
+//    [self asyncConcurrent];
+}
+
+/**
+ *  异步：在新的线程中执行任务，具备开启新线程的能力
+ */
+// 异步并发
+- (void)asyncConcurrent {
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        NSLog(@"异步并发1 ----%@", [NSThread currentThread]);
+    });
+    
+    dispatch_async(queue, ^{
+        sleep(1);
+        NSLog(@"异步并发2 ----%@", [NSThread currentThread]);
+    });
+    dispatch_async(queue, ^{
+        sleep(2);
+        NSLog(@"异步并发3 ----%@", [NSThread currentThread]);
+    });
+    dispatch_async(queue, ^{
+        sleep(3);
+        NSLog(@"异步并发4 ----%@", [NSThread currentThread]);
+    });
+    dispatch_async(queue, ^{
+
+        NSLog(@"异步并发5 ----%@", [NSThread currentThread]);
+    });
+    
+    NSLog(@"写在最后....%@", [NSThread currentThread]);
+}
+
+// 异步串行
+- (void)asyncSerial {
+    
+    dispatch_queue_t queue = dispatch_queue_create("com.zhang.dong", NULL);;
+    dispatch_async(queue, ^{
+        NSLog(@"异步串行1 ----%@", [NSThread currentThread]);
+    });
+    
+    dispatch_async(queue, ^{
+    
+        NSLog(@"异步串行2 ----%@", [NSThread currentThread]);
+    });
+    dispatch_async(queue, ^{
+      
+        NSLog(@"异步串行3 ----%@", [NSThread currentThread]);
+    });
+    dispatch_async(queue, ^{
+
+        NSLog(@"异步串行4 ----%@", [NSThread currentThread]);
+    });
+    dispatch_async(queue, ^{
+
+        NSLog(@"异步串行5 ----%@", [NSThread currentThread]);
+    });
+
+    NSLog(@"写在最后....%@", [NSThread currentThread]);
+}
+
+/**
+ *  同步不会开辟线程
+ */
+// 同步并发
+- (void)syncConcurrent {
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_sync(queue, ^{
+        NSLog(@"同步并发1 ----%@", [NSThread currentThread]);
+    });
+    
+    dispatch_sync(queue, ^{
+        sleep(1);
+        NSLog(@"同步并发2 ----%@", [NSThread currentThread]);
+    });
+    dispatch_sync(queue, ^{
+        sleep(2);
+        NSLog(@"同步并发3 ----%@", [NSThread currentThread]);
+    });
+    dispatch_sync(queue, ^{
+        sleep(3);
+        NSLog(@"同步并发4 ----%@", [NSThread currentThread]);
+    });
+    dispatch_sync(queue, ^{
+        sleep(4);
+        NSLog(@"同步并发5 ----%@", [NSThread currentThread]);
+    });
+
+    
+}
+
+// 同步串行队列
+- (void)syncSerial {
+    
+    dispatch_queue_t queue = dispatch_queue_create("com.zhang.dong", NULL);;
+    dispatch_sync(queue, ^{
+        NSLog(@"同步串行1 ----%@", [NSThread currentThread]);
+    });
+    
+    dispatch_sync(queue, ^{
+        sleep(1);
+        NSLog(@"同步串行2 ----%@", [NSThread currentThread]);
+    });
+    dispatch_sync(queue, ^{
+        sleep(2);
+        NSLog(@"同步串行3 ----%@", [NSThread currentThread]);
+    });
+    dispatch_sync(queue, ^{
+        sleep(3);
+        NSLog(@"同步串行4 ----%@", [NSThread currentThread]);
+    });
+    dispatch_sync(queue, ^{
+        sleep(4);
+        NSLog(@"同步串行5 ----%@", [NSThread currentThread]);
+    });
 }
 
 /**
@@ -107,6 +227,9 @@
         }
     });
     
+    for (int i = 0; i < 1000; i ++) {
+        NSLog(@"任务三：%@_%d", [NSThread currentThread], i);
+    }
 }
 
 - (IBAction)mainQueue:(id)sender {
