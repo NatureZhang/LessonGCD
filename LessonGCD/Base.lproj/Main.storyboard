@@ -1,8 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,12 +21,136 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1v-1y-JJr">
+                                <rect key="frame" x="45" y="35" width="93" height="28"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="异步到并发队列"/>
+                                <connections>
+                                    <action selector="asyncConcurrent" destination="BYZ-38-t0r" eventType="touchUpInside" id="Afz-Al-wd9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8V1-ey-YEm">
+                                <rect key="frame" x="199" y="35" width="93" height="28"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="异步到串行队列"/>
+                                <connections>
+                                    <action selector="asyncSerial" destination="BYZ-38-t0r" eventType="touchUpInside" id="vOB-1A-B5v"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1C-Sm-gUY">
+                                <rect key="frame" x="45" y="103" width="93" height="28"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="同步到并发队列"/>
+                                <connections>
+                                    <action selector="syncConcurrent" destination="BYZ-38-t0r" eventType="touchUpInside" id="i3X-RH-Rpa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQ7-HE-9bu">
+                                <rect key="frame" x="199" y="103" width="93" height="28"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="同步到串行队列"/>
+                                <connections>
+                                    <action selector="syncSerial" destination="BYZ-38-t0r" eventType="touchUpInside" id="cTT-aT-YTD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqW-2q-KOu">
+                                <rect key="frame" x="45" y="171" width="247" height="29"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="串行队列中有异步和同步函数"/>
+                                <connections>
+                                    <action selector="asyncQueue" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mid-0q-5VQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0f-jf-RqS">
+                                <rect key="frame" x="45" y="269" width="247" height="29"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="死锁"/>
+                                <connections>
+                                    <action selector="deadLock:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RPc-mC-1rN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOp-nT-Awx">
+                                <rect key="frame" x="45" y="220" width="247" height="29"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="并发队列中有异步和同步函数"/>
+                                <connections>
+                                    <action selector="concurrentQueue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HjH-Bb-jai"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nX5-kX-1GY">
+                                <rect key="frame" x="45" y="319" width="247" height="29"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="barrier"/>
+                                <connections>
+                                    <action selector="barrierQueue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uDk-Vm-bcQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJJ-BI-SIM">
+                                <rect key="frame" x="45" y="372" width="247" height="29"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="apply"/>
+                                <connections>
+                                    <action selector="dispatchApply:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uhB-FM-JN6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXh-v2-6ee">
+                                <rect key="frame" x="45" y="427" width="247" height="29"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="group"/>
+                                <connections>
+                                    <action selector="disPatchGroup:" destination="BYZ-38-t0r" eventType="touchUpInside" id="p5z-WF-IaM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="DQ7-HE-9bu" firstAttribute="leading" secondItem="P1C-Sm-gUY" secondAttribute="trailing" constant="61" id="0mc-Zi-hVp"/>
+                            <constraint firstItem="CXh-v2-6ee" firstAttribute="trailing" secondItem="hJJ-BI-SIM" secondAttribute="trailing" id="11A-wH-dIZ"/>
+                            <constraint firstItem="Z1v-1y-JJr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="29" id="3gb-SJ-ODi"/>
+                            <constraint firstItem="wqW-2q-KOu" firstAttribute="trailing" secondItem="DQ7-HE-9bu" secondAttribute="trailing" id="3nF-SR-G1J"/>
+                            <constraint firstItem="P1C-Sm-gUY" firstAttribute="centerY" secondItem="DQ7-HE-9bu" secondAttribute="centerY" id="4Jj-pc-ahH"/>
+                            <constraint firstItem="CXh-v2-6ee" firstAttribute="top" secondItem="hJJ-BI-SIM" secondAttribute="bottom" constant="26" id="73G-J7-QIX"/>
+                            <constraint firstItem="hJJ-BI-SIM" firstAttribute="trailing" secondItem="nX5-kX-1GY" secondAttribute="trailing" id="7Iz-FV-yvh"/>
+                            <constraint firstItem="l0f-jf-RqS" firstAttribute="leading" secondItem="wqW-2q-KOu" secondAttribute="leading" id="Acs-P9-7ci"/>
+                            <constraint firstItem="Z1v-1y-JJr" firstAttribute="width" secondItem="8V1-ey-YEm" secondAttribute="width" id="COn-to-GxJ"/>
+                            <constraint firstItem="yOp-nT-Awx" firstAttribute="trailing" secondItem="wqW-2q-KOu" secondAttribute="trailing" id="D5D-tB-4FJ"/>
+                            <constraint firstItem="nX5-kX-1GY" firstAttribute="trailing" secondItem="l0f-jf-RqS" secondAttribute="trailing" id="D93-uF-qS2"/>
+                            <constraint firstItem="yOp-nT-Awx" firstAttribute="leading" secondItem="l0f-jf-RqS" secondAttribute="leading" id="FLI-eq-ck3"/>
+                            <constraint firstItem="l0f-jf-RqS" firstAttribute="top" secondItem="yOp-nT-Awx" secondAttribute="bottom" constant="20" id="FPK-qX-wes"/>
+                            <constraint firstItem="P1C-Sm-gUY" firstAttribute="leading" secondItem="Z1v-1y-JJr" secondAttribute="leading" id="HpX-Zz-hOE"/>
+                            <constraint firstItem="8V1-ey-YEm" firstAttribute="leading" secondItem="Z1v-1y-JJr" secondAttribute="trailing" constant="61" id="Jw2-8s-q2F"/>
+                            <constraint firstItem="hJJ-BI-SIM" firstAttribute="leading" secondItem="nX5-kX-1GY" secondAttribute="leading" id="Jxz-k7-cvD"/>
+                            <constraint firstItem="wqW-2q-KOu" firstAttribute="leading" secondItem="P1C-Sm-gUY" secondAttribute="leading" id="KUI-TI-Ohq"/>
+                            <constraint firstItem="Z1v-1y-JJr" firstAttribute="centerY" secondItem="8V1-ey-YEm" secondAttribute="centerY" id="LfR-Ut-3nV"/>
+                            <constraint firstItem="hJJ-BI-SIM" firstAttribute="top" secondItem="nX5-kX-1GY" secondAttribute="bottom" constant="24" id="Teb-Me-pTu"/>
+                            <constraint firstItem="nX5-kX-1GY" firstAttribute="leading" secondItem="l0f-jf-RqS" secondAttribute="leading" id="VCQ-ms-4IP"/>
+                            <constraint firstItem="Z1v-1y-JJr" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="acc-Wf-jiM"/>
+                            <constraint firstItem="P1C-Sm-gUY" firstAttribute="top" secondItem="Z1v-1y-JJr" secondAttribute="bottom" constant="40" id="d9s-qF-AnZ"/>
+                            <constraint firstItem="CXh-v2-6ee" firstAttribute="leading" secondItem="hJJ-BI-SIM" secondAttribute="leading" id="dwm-Fv-d71"/>
+                            <constraint firstItem="yOp-nT-Awx" firstAttribute="trailing" secondItem="l0f-jf-RqS" secondAttribute="trailing" id="e77-FH-E2t"/>
+                            <constraint firstItem="wqW-2q-KOu" firstAttribute="top" secondItem="P1C-Sm-gUY" secondAttribute="bottom" constant="40" id="jtB-8a-BPV"/>
+                            <constraint firstItem="l0f-jf-RqS" firstAttribute="trailing" secondItem="wqW-2q-KOu" secondAttribute="trailing" id="k8C-Lk-FDx"/>
+                            <constraint firstItem="P1C-Sm-gUY" firstAttribute="width" secondItem="DQ7-HE-9bu" secondAttribute="width" id="lhj-4k-Ojf"/>
+                            <constraint firstItem="yOp-nT-Awx" firstAttribute="top" secondItem="wqW-2q-KOu" secondAttribute="bottom" constant="20" id="oW0-FW-l8z"/>
+                            <constraint firstItem="nX5-kX-1GY" firstAttribute="top" secondItem="l0f-jf-RqS" secondAttribute="bottom" constant="21" id="s12-0J-EyV"/>
+                            <constraint firstItem="yOp-nT-Awx" firstAttribute="leading" secondItem="wqW-2q-KOu" secondAttribute="leading" id="wxX-CZ-LgD"/>
+                        </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="88.605697151424295"/>
         </scene>
     </scenes>
 </document>

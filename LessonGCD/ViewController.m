@@ -86,7 +86,7 @@
 
 //    [self disPatchGroup:nil];
 //    [self asyncQueue];
-    [self syncSerial];
+//    [self syncSerial];
 //    [self syncConcurrent];
 //    [self asyncSerial];
 //    [self asyncConcurrent];
@@ -96,7 +96,7 @@
  *  异步：在新的线程中执行任务，具备开启新线程的能力
  */
 // 异步并发
-- (void)asyncConcurrent {
+- (IBAction)asyncConcurrent {
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
@@ -124,7 +124,7 @@
 }
 
 // 异步串行
-- (void)asyncSerial {
+- (IBAction)asyncSerial {
     
     dispatch_queue_t queue = dispatch_queue_create("com.zhang.dong", NULL);;
     dispatch_async(queue, ^{
@@ -155,7 +155,7 @@
  *  同步不会开辟线程
  */
 // 同步并发
-- (void)syncConcurrent {
+- (IBAction)syncConcurrent {
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_sync(queue, ^{
@@ -183,7 +183,7 @@
 }
 
 // 同步串行队列
-- (void)syncSerial {
+- (IBAction)syncSerial {
     
     dispatch_queue_t queue = dispatch_queue_create("com.zhang.dong", NULL);;
     dispatch_sync(queue, ^{
@@ -211,30 +211,48 @@
 /**
  *  异步到串行队列，异步函数要执行的任务会被排到队列的后面，只有当目前这个方法执行完毕后才会过来执行这个任务，如果有多个异步函数，那么任务会依次执行
  */
-- (void)asyncQueue {
+- (IBAction)asyncQueue {
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-       
-        for (int i = 0; i < 5000; i ++) {
-            NSLog(@"任务一：%@_%d", [NSThread currentThread], i);
-        }
-    });
+    // 主队列
+//    {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//           
+//            NSLog(@"任务一：%@", [NSThread currentThread]);
+//        });
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            NSLog(@"任务二：%@", [NSThread currentThread]);
+//        });
+//        
+//        NSLog(@"任务三：%@", [NSThread currentThread]);
+//    }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    // 创建的串行队列
+    {
+    
+        dispatch_queue_t queue = dispatch_queue_create("com.demo.serialQueue", DISPATCH_QUEUE_SERIAL);
         
-        for (int i = 0; i < 5000; i ++) {
-            NSLog(@"任务二：%@_%d", [NSThread currentThread], i);
-        }
-    });
-    
-    for (int i = 0; i < 1000; i ++) {
-        NSLog(@"任务三：%@_%d", [NSThread currentThread], i);
+        
+        NSLog(@"任务一：%@", [NSThread currentThread]);
+        dispatch_async(queue, ^{
+            
+            NSLog(@"任务二：%@", [NSThread currentThread]);
+        });
+        
+        dispatch_async(queue, ^{
+            
+            NSLog(@"任务三：%@", [NSThread currentThread]);
+        });
+        
+        NSLog(@"任务四：%@", [NSThread currentThread]);
     }
+    
 }
 
-- (IBAction)mainQueue:(id)sender {
-    /*
-    // 1 同步到主队列会造成死锁
+- (IBAction)deadLock:(id)sender {
+    
+    // 1 同步到所在队列会造成死锁
     dispatch_sync(dispatch_get_main_queue(), ^{
        
         // 这句代码永远不会执行
@@ -243,16 +261,6 @@
     
     // 这句也不会执行
     NSLog(@"方法执行完成");
-    
-    */
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-       
-        NSLog(@"任务1_%@_%d", [NSThread currentThread], [NSThread isMainThread]);
-
-    });
-    
-    NSLog(@"任务2");
 }
 
 - (IBAction)concurrentQueue:(id)sender {
