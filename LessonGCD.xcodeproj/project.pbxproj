@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D935CE4A1E67C55300FC8442 /* LockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D935CE491E67C55300FC8442 /* LockViewController.m */; };
+		D935CE4E1E67C65500FC8442 /* TestObj.m in Sources */ = {isa = PBXBuildFile; fileRef = D935CE4D1E67C65500FC8442 /* TestObj.m */; };
 		D9FAB1C21CEABD06008BDA0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FAB1C11CEABD06008BDA0D /* main.m */; };
 		D9FAB1C51CEABD06008BDA0D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FAB1C41CEABD06008BDA0D /* AppDelegate.m */; };
 		D9FAB1C81CEABD06008BDA0D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FAB1C71CEABD06008BDA0D /* ViewController.m */; };
@@ -17,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D935CE481E67C55300FC8442 /* LockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LockViewController.h; sourceTree = "<group>"; };
+		D935CE491E67C55300FC8442 /* LockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LockViewController.m; sourceTree = "<group>"; };
+		D935CE4C1E67C65500FC8442 /* TestObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestObj.h; sourceTree = "<group>"; };
+		D935CE4D1E67C65500FC8442 /* TestObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestObj.m; sourceTree = "<group>"; };
 		D9FAB1BD1CEABD06008BDA0D /* LessonGCD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LessonGCD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9FAB1C11CEABD06008BDA0D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D9FAB1C31CEABD06008BDA0D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -42,6 +48,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D935CE4B1E67C5FE00FC8442 /* Lock */ = {
+			isa = PBXGroup;
+			children = (
+				D935CE481E67C55300FC8442 /* LockViewController.h */,
+				D935CE491E67C55300FC8442 /* LockViewController.m */,
+				D935CE4C1E67C65500FC8442 /* TestObj.h */,
+				D935CE4D1E67C65500FC8442 /* TestObj.m */,
+			);
+			name = Lock;
+			sourceTree = "<group>";
+		};
 		D9FAB1B41CEABD06008BDA0D = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +84,7 @@
 				D9FAB1C71CEABD06008BDA0D /* ViewController.m */,
 				D9FAB1D71CEAF9B3008BDA0D /* SafeSingleTon.h */,
 				D9FAB1D81CEAF9B3008BDA0D /* SafeSingleTon.m */,
+				D935CE4B1E67C5FE00FC8442 /* Lock */,
 				D9FAB1C91CEABD06008BDA0D /* Main.storyboard */,
 				D9FAB1CC1CEABD06008BDA0D /* Assets.xcassets */,
 				D9FAB1CE1CEABD06008BDA0D /* LaunchScreen.storyboard */,
@@ -157,7 +175,9 @@
 				D9FAB1D91CEAF9B3008BDA0D /* SafeSingleTon.m in Sources */,
 				D9FAB1C81CEABD06008BDA0D /* ViewController.m in Sources */,
 				D9FAB1C51CEABD06008BDA0D /* AppDelegate.m in Sources */,
+				D935CE4E1E67C65500FC8442 /* TestObj.m in Sources */,
 				D9FAB1C21CEABD06008BDA0D /* main.m in Sources */,
+				D935CE4A1E67C55300FC8442 /* LockViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +324,7 @@
 				D9FAB1D61CEABD06008BDA0D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
