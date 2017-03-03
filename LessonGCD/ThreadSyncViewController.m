@@ -170,6 +170,7 @@ static NSString *imageUrlStr = @"http://avatar.csdn.net/B/2/2/1_u010013695.jpg";
     });
 }
 
+// dispatch_wait 会阻塞线程并且检测信号量的值，直到信号量值大于0才会开始往下执行，同时对信号量执行 -1 操作，dispatch_signal则是+1操作
 - (IBAction)semaphore:(id)sender {
     
     //清空图片
@@ -181,35 +182,28 @@ static NSString *imageUrlStr = @"http://avatar.csdn.net/B/2/2/1_u010013695.jpg";
     
     __block UIImage *image = nil;
     
-    // 这种形式并不能同步，因为先执行哪个队列是不能确定的
-    
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     dispatch_async(queue, ^{
        
         //获取这个信号量 wait操作-1
-//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        
-//        image = [self imageDownloadFromNetWork];
-        NSLog(@"1_%@---------", [NSThread currentThread]);
-
+        image = [self imageDownloadFromNetWork];
         //释放这个信号量 signal操作+1
-//        dispatch_semaphore_signal(semaphore);
-        
+        dispatch_semaphore_signal(semaphore);
     });
     
     dispatch_async(dispatch_get_main_queue(), ^{
        
         //获取这个信号量 wait操作-1
-//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         
-//        [self showImage:image];
-        NSLog(@"2_%@", [NSThread currentThread]);
+        //显示图片
+        [self showImage:image];
 
         //释放这个信号量 signal+1
-//        dispatch_semaphore_signal(semaphore);
+        dispatch_semaphore_signal(semaphore);
         
     });
 
-    // dispatch_wait 会阻塞线程并且检测信号量的值，直到信号量值大于0才会开始往下执行，同时对信号量执行 -1 操作，dispatch_signal则是+1操作
 }
 
 @end
