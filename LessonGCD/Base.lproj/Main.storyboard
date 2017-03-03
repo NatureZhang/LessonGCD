@@ -122,6 +122,16 @@
                                     <segue destination="08R-gt-xTs" kind="push" id="HXs-iX-1qq"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpa-Fj-Pqq">
+                                <rect key="frame" x="152" y="526" width="140" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.72549019609999998" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="GCD中线程同步方式">
+                                    <color key="titleColor" red="0.30980393290000002" green="0.015686275440000001" blue="0.1294117719" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="gdo-dZ-zAc" kind="push" id="eXJ-Mo-FHS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -130,6 +140,7 @@
                             <constraint firstItem="Z1v-1y-JJr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="29" id="3gb-SJ-ODi"/>
                             <constraint firstItem="wqW-2q-KOu" firstAttribute="trailing" secondItem="DQ7-HE-9bu" secondAttribute="trailing" id="3nF-SR-G1J"/>
                             <constraint firstItem="P1C-Sm-gUY" firstAttribute="centerY" secondItem="DQ7-HE-9bu" secondAttribute="centerY" id="4Jj-pc-ahH"/>
+                            <constraint firstItem="dpa-Fj-Pqq" firstAttribute="top" secondItem="CXh-v2-6ee" secondAttribute="bottom" constant="26" id="5MB-7G-NBP"/>
                             <constraint firstItem="CXh-v2-6ee" firstAttribute="top" secondItem="hJJ-BI-SIM" secondAttribute="bottom" constant="26" id="73G-J7-QIX"/>
                             <constraint firstItem="hJJ-BI-SIM" firstAttribute="trailing" secondItem="nX5-kX-1GY" secondAttribute="trailing" id="7Iz-FV-yvh"/>
                             <constraint firstItem="l0f-jf-RqS" firstAttribute="leading" secondItem="wqW-2q-KOu" secondAttribute="leading" id="Acs-P9-7ci"/>
@@ -146,6 +157,7 @@
                             <constraint firstItem="9l1-LA-vlh" firstAttribute="top" secondItem="CXh-v2-6ee" secondAttribute="bottom" constant="26" id="SjF-rl-5WA"/>
                             <constraint firstItem="hJJ-BI-SIM" firstAttribute="top" secondItem="nX5-kX-1GY" secondAttribute="bottom" constant="24" id="Teb-Me-pTu"/>
                             <constraint firstItem="nX5-kX-1GY" firstAttribute="leading" secondItem="l0f-jf-RqS" secondAttribute="leading" id="VCQ-ms-4IP"/>
+                            <constraint firstItem="dpa-Fj-Pqq" firstAttribute="leading" secondItem="9l1-LA-vlh" secondAttribute="trailing" constant="15" id="WGg-DI-uU8"/>
                             <constraint firstItem="Z1v-1y-JJr" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="acc-Wf-jiM"/>
                             <constraint firstItem="P1C-Sm-gUY" firstAttribute="top" secondItem="Z1v-1y-JJr" secondAttribute="bottom" constant="40" id="d9s-qF-AnZ"/>
                             <constraint firstItem="CXh-v2-6ee" firstAttribute="leading" secondItem="hJJ-BI-SIM" secondAttribute="leading" id="dwm-Fv-d71"/>
@@ -264,6 +276,106 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y5S-iM-Hq2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1714.4000000000001" y="88.605697151424295"/>
+        </scene>
+        <!--Thread Sync View Controller-->
+        <scene sceneID="n6A-50-yc0">
+            <objects>
+                <viewController id="gdo-dZ-zAc" customClass="ThreadSyncViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1M1-bI-yga"/>
+                        <viewControllerLayoutGuide type="bottom" id="KQH-3O-bx0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oVR-CA-ggm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jgi-EZ-euU">
+                                <rect key="frame" x="127.5" y="97" width="120" height="120"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Zx3-FV-9Mg"/>
+                                    <constraint firstAttribute="width" constant="120" id="nbw-Ah-RYY"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gw1-4H-LeZ">
+                                <rect key="frame" x="122" y="255" width="131" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.72549019609999998" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="bhV-1f-Qty"/>
+                                    <constraint firstAttribute="width" constant="131" id="eo7-Km-kH4"/>
+                                </constraints>
+                                <state key="normal" title="串行队列">
+                                    <color key="titleColor" red="0.088181089739999996" green="0.088181089739999996" blue="0.088181089739999996" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="syncQueue:" destination="gdo-dZ-zAc" eventType="touchUpInside" id="g5u-gK-Zyt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUZ-rH-Snd">
+                                <rect key="frame" x="122" y="300" width="131" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.72549019609999998" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="PK8-PT-Kxi"/>
+                                    <constraint firstAttribute="width" constant="131" id="eqD-LV-8Zn"/>
+                                </constraints>
+                                <state key="normal" title="并行队列">
+                                    <color key="titleColor" red="0.088181089739999996" green="0.088181089739999996" blue="0.088181089739999996" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="asyncQueue:" destination="gdo-dZ-zAc" eventType="touchUpInside" id="fGl-1Y-0d9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hd5-cf-suY">
+                                <rect key="frame" x="122" y="345" width="131" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.72549019609999998" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="131" id="Pmx-HQ-ulv"/>
+                                    <constraint firstAttribute="height" constant="30" id="VBW-VT-h2a"/>
+                                </constraints>
+                                <state key="normal" title="分组">
+                                    <color key="titleColor" red="0.088181089739999996" green="0.088181089739999996" blue="0.088181089739999996" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="groupQueue:" destination="gdo-dZ-zAc" eventType="touchUpInside" id="Tge-0N-etX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wzh-tB-bNB">
+                                <rect key="frame" x="122" y="390" width="131" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.72549019609999998" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="FLG-AB-nYt"/>
+                                    <constraint firstAttribute="width" constant="131" id="jwz-as-drB"/>
+                                </constraints>
+                                <state key="normal" title="信号量">
+                                    <color key="titleColor" red="0.088181089739999996" green="0.088181089739999996" blue="0.088181089739999996" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="semaphore:" destination="gdo-dZ-zAc" eventType="touchUpInside" id="wDb-Po-wy8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gw1-4H-LeZ" firstAttribute="centerX" secondItem="oVR-CA-ggm" secondAttribute="centerX" id="1Bf-81-cDU"/>
+                            <constraint firstItem="Jgi-EZ-euU" firstAttribute="top" secondItem="1M1-bI-yga" secondAttribute="bottom" constant="33" id="8zr-Nc-64B"/>
+                            <constraint firstItem="hd5-cf-suY" firstAttribute="centerX" secondItem="oVR-CA-ggm" secondAttribute="centerX" id="aeO-7P-GBb"/>
+                            <constraint firstItem="QUZ-rH-Snd" firstAttribute="centerX" secondItem="oVR-CA-ggm" secondAttribute="centerX" id="e5a-Cm-Quw"/>
+                            <constraint firstItem="QUZ-rH-Snd" firstAttribute="top" secondItem="gw1-4H-LeZ" secondAttribute="bottom" constant="15" id="hC4-5s-STb"/>
+                            <constraint firstItem="hd5-cf-suY" firstAttribute="top" secondItem="QUZ-rH-Snd" secondAttribute="bottom" constant="15" id="is4-o8-qJr"/>
+                            <constraint firstItem="Wzh-tB-bNB" firstAttribute="centerX" secondItem="oVR-CA-ggm" secondAttribute="centerX" id="k5O-It-Ua1"/>
+                            <constraint firstItem="Jgi-EZ-euU" firstAttribute="centerX" secondItem="oVR-CA-ggm" secondAttribute="centerX" id="pqa-AN-EBe"/>
+                            <constraint firstItem="gw1-4H-LeZ" firstAttribute="top" secondItem="Jgi-EZ-euU" secondAttribute="bottom" constant="38" id="ye3-L7-lg5"/>
+                            <constraint firstItem="Wzh-tB-bNB" firstAttribute="top" secondItem="hd5-cf-suY" secondAttribute="bottom" constant="15" id="zUv-L9-3l8"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="31b-zm-ueN"/>
+                    <connections>
+                        <outlet property="imageView" destination="Jgi-EZ-euU" id="0uP-3s-26i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EwU-mb-RZx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1389.5999999999999" y="807.34632683658174"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OSm-cN-9Js">
