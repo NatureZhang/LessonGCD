@@ -106,15 +106,15 @@
     });
     
     dispatch_async(queue, ^{
-        sleep(1);
+//        sleep(1);
         NSLog(@"异步并发2 ----%@", [NSThread currentThread]);
     });
     dispatch_async(queue, ^{
-        sleep(2);
+//        sleep(2);
         NSLog(@"异步并发3 ----%@", [NSThread currentThread]);
     });
     dispatch_async(queue, ^{
-        sleep(3);
+//        sleep(3);
         NSLog(@"异步并发4 ----%@", [NSThread currentThread]);
     });
     dispatch_async(queue, ^{
@@ -122,7 +122,7 @@
         NSLog(@"异步并发5 ----%@", [NSThread currentThread]);
     });
     
-    NSLog(@"写在最后....%@", [NSThread currentThread]);
+//    NSLog(@"写在最后....%@", [NSThread currentThread]);
 }
 
 // 异步串行
