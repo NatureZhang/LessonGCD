@@ -90,6 +90,8 @@
 //    [self syncConcurrent];
 //    [self asyncSerial];
 //    [self asyncConcurrent];
+    
+    [self OperationQueue];
 }
 
 /**
@@ -389,7 +391,23 @@
 //    dispatch_resume(<#dispatch_object_t object#>)
 }
 
-
+- (void)OperationQueue {
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(10);
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    for (int i = 0; i < 20; i++)
+    {
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_group_async(group, queue, ^{
+            NSLog(@"%i__%@",i, [NSThread currentThread]);
+            sleep(2);
+            dispatch_semaphore_signal(semaphore);
+        });
+    }
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+//    dispatch_release(group);
+//    dispatch_release(semaphore);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
