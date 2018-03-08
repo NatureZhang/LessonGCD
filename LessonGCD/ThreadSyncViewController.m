@@ -203,7 +203,34 @@ static NSString *imageUrlStr = @"http://avatar.csdn.net/B/2/2/1_u010013695.jpg";
         dispatch_semaphore_signal(semaphore);
         
     });
+}
 
+- (IBAction)dispatchSemaphore:(id)sender {
+    
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    // 通过信号量 实现同步的网络请求
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"失败");
+        }
+        else {
+            NSLog(@"成功");
+        }
+        
+        dispatch_semaphore_signal(semaphore);
+    }];
+    
+    [dataTask resume];
+    
+    if (semaphore) {
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    }
+    
+    NSLog(@"写在末尾");
 }
 
 @end

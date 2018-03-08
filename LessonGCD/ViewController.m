@@ -76,6 +76,7 @@
  */
 
 @interface ViewController ()
+@property (atomic,strong) dispatch_semaphore_t semaphore;
 
 @end
 
@@ -91,7 +92,7 @@
 //    [self asyncSerial];
 //    [self asyncConcurrent];
     
-    [self OperationQueue];
+//    [self OperationQueue];
 }
 
 /**
@@ -362,19 +363,46 @@
     dispatch_group_t group = dispatch_group_create();
     
     // 获得当前全局队列
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+//    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+//
+//    // 执行组函数
+//    dispatch_group_async(group, queue, ^{
+//        NSLog(@"任务1: %@", [NSThread currentThread]);
+//    });
+//    dispatch_group_async(group, queue, ^{
+//        NSLog(@"任务2: %@", [NSThread currentThread]);
+//    });
+//
+//    // 当所有组函数执行完毕后执行dispatch_group_notify
+//    dispatch_group_notify(group, queue, ^{
+//        NSLog(@"当任务1和任务2执行完毕后通知执行任务3: %@", [NSThread currentThread]);
+//    });
     
-    // 执行组函数
+    dispatch_queue_t queue = dispatch_queue_create("group_test", DISPATCH_QUEUE_SERIAL);
     dispatch_group_async(group, queue, ^{
-        NSLog(@"任务1: %@", [NSThread currentThread]);
-    });
-    dispatch_group_async(group, queue, ^{
-        NSLog(@"任务2: %@", [NSThread currentThread]);
+        for (int i = 0; i < 5; i ++) {
+            
+//            self.semaphore = dispatch_semaphore_create(0);
+            NSLog(@" ++++++++++ %@ +++++++++", self.semaphore);
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSLog(@"- 1 --- %d ----- %@ ---", i, [NSThread currentThread]);
+//                if (self.semaphore) {
+//                    dispatch_semaphore_signal(self.semaphore);
+//                }
+                NSLog(@"- 2 --- %d ----- %@ ---", i, [NSThread currentThread]);
+            });
+            
+            NSLog(@"- 3 --- %d ----- %@ ---", i, [NSThread currentThread]);
+//            if (self.semaphore) {
+//                dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+//            }
+            NSLog(@"- 4 --- %d ----- %@ ---", i, [NSThread currentThread]);
+            self.semaphore = nil;
+        }
     });
     
-    // 当所有组函数执行完毕后执行dispatch_group_notify
     dispatch_group_notify(group, queue, ^{
-        NSLog(@"当任务1和任务2执行完毕后通知执行任务3: %@", [NSThread currentThread]);
+        NSLog(@"========= %@ =========", [NSThread currentThread]);
     });
     
 }
